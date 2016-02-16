@@ -1,0 +1,18 @@
+* Prometheus
+** Using the delta function
+The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time. 
+This example graphs the mongodb_op_counters_total variable's changes every 5 seconds: 
+
+#+BEGIN_SRC js
+delta(mongodb_op_counters_total[5s])
+#+END_SRC
+** Reloading the configuration 
+
+The configuration file can be reloaded live by sending SIGHUP to the process: 
+
+#+BEGIN_SRC sh
+kill -SIGHUP $(pidof prometheus)
+#+END_SRC
+
+If the configuration has an error, it won't be applied, and the error message will be printed to stdout (or the appropriate log file if set)
+Source: http://prometheus.io/docs/operating/configuration/
