@@ -1,3 +1,52 @@
+* Percona Toolkit
+** Updating modules
+Percona Toolkit includes all modules in the resulting script for each
+tool, so if you make changes to the code for a module, the tools using
+it must be regenerated. 
+
+The following example updates pt-stalk after making changes to the
+collect module: 
+
+#+BEGIN_SRC sh
+cd /path/to/percona-toolkit/repo/
+util/update-modules bin/pt-stalk collect
+#+END_SRC 
+
+Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]] 
+
+** Testing
+In order to run the tests for a tool before submitting a patch/pull
+request, the following must be done: 
+
+1- Set up the required environment variables
+
+#+BEGIN_SRC sh
+export PERCONA_TOOLKIT_BRANCH=/path/to/branch/to/test
+export PERCONA_TOOLKIT_SANDBOX=/path/to/mysql/bin/dist
+#+END_SRC
+
+The second variable must point to a binary directory for MySQL, such
+as the ones used by [[http://mysqlsandbox.net][MySQL Sandbox]]. 
+
+2- Start the sandbox
+
+This is done by running: 
+
+#+BEGIN_SRC sh
+cd $PERCONA_TOOLKIT_BRANCH/sandbox
+./test-env start
+#+END_SRC 
+
+3- Run the test (or tests)
+
+An example to test changes to pt-stalk: 
+
+#+BEGIN_SRC sh
+cd $PERCONA_TOOLKIT_BRANCH/t/pt-stalk
+prove -v .
+#+END_SRC
+
+Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]] 
 * Prometheus
 ** Using the delta function
 The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time. 
