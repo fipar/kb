@@ -65,3 +65,55 @@ kill -SIGHUP $(pidof prometheus)
 
 If the configuration has an error, it won't be applied, and the error message will be printed to stdout (or the appropriate log file if set)
 Source: http://prometheus.io/docs/operating/configuration/
+* R
+** large-ish data sets
+Todo: 
+- importing csv into mysql
+- stats to validate what grafana shows (quantiles)
+  - quantile func. also, log graphic. 
+
+This imports a csv file into MySQL, then loads it from R to generate a
+scatter plot with a large number of observations (8M in my case). 
+
+I had to use RMySQL because, a direct load via read.csv() would fail
+running out of memory, which is clearly a problem with the read.table
+family of functions, as this is a 2GB file being processed on a 16GB
+RAM box.  
+
+Here is a snippet of the input file: 
+#+BEGIN_EXAMPLE
+00:28:28,0.0000958180
+00:28:28,0.0000031920
+00:28:28,0.0000039620
+00:28:28,0.0000031800
+00:28:28,0.0000021810
+#+END_EXAMPLE
+
+Which is loaded into MySQL like so: 
+
+#+BEGIN_SRC sql
+CREATE TABLE `mrt` (
+  `ts` time DEFAULT NULL,
+  `rt` mediumtext
+); -- Yes, no indexes
+load data infile '/tmp/mrt.csv' into table mrt fields terminated by ',';
+#+END_SRC
+
+And then processed from R like so: 
+
+#+BEGIN_SRC r
+library(RMySQL)
+con <- dbConnect(MySQL(), user="root", password="", dbname="r", host="localhost")
+mrt <- dbGetQuery(con, "select ts, rt from r.mrt")
+
+ggplot(mrt, aes(x=mrt$ts, y=as.numeric(mrt$rt))) + geom_point()+ xlab("time") + ylab("response time") + ggtitle("MongoDB response time") + scale_x_discrete(breaks=function(x) {
+min = as.integer(gsub(":","",bounds[1]))
+max = as.integer(gsub(":","",bounds[2]))
+return (c(as.character(min),as.character((min+max)/2),as.character(max)))
+})
+
+#+END_SRC
+
+sources:
+- http://www.r-bloggers.com/mysql-and-r/
+- https://cran.r-project.org/package=RMySQL
