@@ -65,6 +65,42 @@ kill -SIGHUP $(pidof prometheus)
 
 If the configuration has an error, it won't be applied, and the error message will be printed to stdout (or the appropriate log file if set)
 Source: http://prometheus.io/docs/operating/configuration/
+* Sysbench
+** Adding functions that can be invoked from lua scripts
+- Add a function to an existing test, or to a new test 
+i.e., on sysbench/db_driver.h: 
+#+BEGIN_SRC c
+void mytest_print_message(char *message);
+#+END_SRC
+sysbench/db_driver.c:
+#+BEGIN_SRC c
+void mytest_print_message(char *message)
+{
+  printf(message);
+}
+#+END_SRC
+- Add the corresponding parts to sysbench/scripting/script_lua.c
+i.e.: 
+#+BEGIN_SRC c
+static int sb_lua_mytest_print_message(lua_State *L);
+
+int sb_lua_mytest_print_message(lua_State *L)
+{
+  sb_lua_ctxt_t *ctxt;
+
+  ctxt = sb_lua_get_context(L);
+  mytest_print_message(luaL_checkstring(L,1));
+}
+
+lua_pushcfunction(state, sb_lua_mytest_print_message);
+lua_setglobal(state, "mytest_print_message");
+#+END_SRC
+- Now we can use mytest_print_message from a lua script: 
+#+BEGIN_SRC lua
+function prepare()
+         mongodb_print_message("This is a test message","Another one")
+end
+#+END_SRC
 * R
 ** large-ish data sets
 Todo: 
