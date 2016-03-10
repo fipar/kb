@@ -98,7 +98,7 @@ lua_setglobal(state, "mytest_print_message");
 - Now we can use mytest_print_message from a lua script: 
 #+BEGIN_SRC lua
 function prepare()
-         mongodb_print_message("This is a test message","Another one")
+         mytest_print_message("This is a test message","Another one")
 end
 #+END_SRC
 * R
