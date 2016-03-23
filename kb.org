@@ -103,10 +103,6 @@ end
 #+END_SRC
 * R
 ** large-ish data sets
-Todo: 
-- importing csv into mysql
-- stats to validate what grafana shows (quantiles)
-  - quantile func. also, log graphic. 
 
 This imports a csv file into MySQL, then loads it from R to generate a
 scatter plot with a large number of observations (8M in my case). 
