@@ -149,3 +149,13 @@ return (c(as.character(min),as.character((min+max)/2),as.character(max)))
 sources:
 - http://www.r-bloggers.com/mysql-and-r/
 - https://cran.r-project.org/package=RMySQL
+* Mac
+** Show dot files in Finder
+In case you need to restore a dot file from a TimeMachine backup. 
+
+#+BEGIN_SRC sh
+defaults write com.apple.finder AppleShowAllFiles TRUE
+killall Finder
+#+END_SRC
+
+source: http://apple.stackexchange.com/questions/141321/how-to-restore-a-hidden-file-in-time-machine
