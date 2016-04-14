@@ -1,0 +1,2 @@
+* linux
+** [[http://kernelnewbies.org/KernelGlossary][Kernel Glossary]] 
