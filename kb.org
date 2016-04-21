@@ -159,3 +159,6 @@ killall Finder
 #+END_SRC
 
 source: http://apple.stackexchange.com/questions/141321/how-to-restore-a-hidden-file-in-time-machine
+* emacs
+** recompile installed packages
+http://stackoverflow.com/questions/24725778/how-to-rebuild-elpa-packages-after-upgrade-of-emacs
