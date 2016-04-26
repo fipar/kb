@@ -162,3 +162,15 @@ source: http://apple.stackexchange.com/questions/141321/how-to-restore-a-hidden-
 * emacs
 ** recompile installed packages
 http://stackoverflow.com/questions/24725778/how-to-rebuild-elpa-packages-after-upgrade-of-emacs
+* git 
+** update submodules
+from a tree with submodules
+(i.e. https://github.com/percona/percona-server-mongodb), after
+cloning: 
+#+BEGIN_SRC sh
+git submodule init
+git pull --recurse-submodules
+git submodule update --recursive
+#+END_SRC
+
+Source: http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules 
