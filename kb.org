@@ -174,3 +174,16 @@ git submodule update --recursive
 #+END_SRC
 
 Source: http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules 
+** remove commits from server
+The only valid use case of this, for me, was to remove images I
+accidentally pushed to [[https://github.com/Percona-Lab/benchmark-results.git
+][benchmark-results]]'s master branch, which should be empty except for
+the README. Otherwise, this is dangerous, as it rewrites history. 
+
+What I did is: 
+#+BEGIN_SRC sh
+git reset --hard HEAD~2  # ~2 because I had to go back 2 commits in this case
+git push master HEAD --force
+#+END_SRC
+
+Source: http://stackoverflow.com/questions/1338728/delete-commits-from-a-branch-in-git
