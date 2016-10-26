@@ -47,6 +47,63 @@ prove -v .
 #+END_SRC
 
 Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]] 
+* MySQL 
+** 8.0
+*** Innodb Memory usage
+#+BEGIN_EXAMPLE
+select * from sys.memory_global_by_current_bytes where event_name LIKE 'memory/innodb/%';
++-------------------------------------------+---------------+---------------+-------------------+------------+------------+----------------+
+| event_name                                | current_count | current_alloc | current_avg_alloc | high_count | high_alloc | high_avg_alloc |
++-------------------------------------------+---------------+---------------+-------------------+------------+------------+----------------+
+| memory/innodb/buf_buf_pool                |             4 | 524.25 MiB    | 131.06 MiB        |          4 | 524.25 MiB | 131.06 MiB     |
+| memory/innodb/log0log                     |             9 | 32.01 MiB     | 3.56 MiB          |          9 | 32.01 MiB  | 3.56 MiB       |
+| memory/innodb/hash0hash                   |            41 | 16.30 MiB     | 406.98 KiB        |         45 | 16.30 MiB  | 370.80 KiB     |
+| memory/innodb/os0event                    |         99139 | 12.86 MiB     | 136 bytes         |      99139 | 12.86 MiB  | 136 bytes      |
+| memory/innodb/ut0pool                     |             2 | 4.00 MiB      | 2.00 MiB          |          2 | 4.00 MiB   | 2.00 MiB       |
+| memory/innodb/os0file                     |           140 | 2.60 MiB      | 19.05 KiB         |        141 | 3.62 MiB   | 26.29 KiB      |
+| memory/innodb/buf0dblwr                   |             4 | 2.02 MiB      | 516.34 KiB        |          5 | 2.05 MiB   | 419.48 KiB     |
+| memory/innodb/memory                      |           941 | 1.65 MiB      | 1.80 KiB          |        969 | 1.85 MiB   | 1.96 KiB       |
+| memory/innodb/sync0arr                    |             3 | 1.20 MiB      | 409.57 KiB        |          3 | 1.20 MiB   | 409.57 KiB     |
+| memory/innodb/lock0lock                   |            33 | 1.10 MiB      | 34.12 KiB         |         33 | 1.10 MiB   | 34.12 KiB      |
+| memory/innodb/read0read                   |          1066 | 163.48 KiB    | 157 bytes         |       1066 | 163.48 KiB | 157 bytes      |
+| memory/innodb/fsp0file                    |             1 | 128.02 KiB    | 128.02 KiB        |          2 | 128.09 KiB | 64.04 KiB      |
+| memory/innodb/row0sel                     |             5 | 55.84 KiB     | 11.17 KiB         |          5 | 55.84 KiB  | 11.17 KiB      |
+| memory/innodb/ha_innodb                   |            66 | 52.22 KiB     | 810 bytes         |         68 | 52.38 KiB  | 789 bytes      |
+| memory/innodb/trx0undo                    |           121 | 40.65 KiB     | 344 bytes         |        121 | 40.65 KiB  | 344 bytes      |
+| memory/innodb/trx0rseg                    |           128 | 37.00 KiB     | 296 bytes         |        128 | 37.00 KiB  | 296 bytes      |
+| memory/innodb/fil0fil                     |           127 | 36.75 KiB     | 296 bytes         |        191 | 228.89 KiB | 1.20 KiB       |
+| memory/innodb/std                         |           369 | 29.88 KiB     | 83 bytes          |        388 | 32.55 KiB  | 86 bytes       |
+| memory/innodb/ut_lock_free_hash_t         |             4 | 16.20 KiB     | 4.05 KiB          |          4 | 16.20 KiB  | 4.05 KiB       |
+| memory/innodb/lexyy                       |             3 | 16.15 KiB     | 5.38 KiB          |          3 | 16.15 KiB  | 5.38 KiB       |
+| memory/innodb/sync0debug                  |            88 | 11.56 KiB     | 134 bytes         |         88 | 11.56 KiB  | 134 bytes      |
+| memory/innodb/dict0dict                   |            81 | 9.77 KiB      | 123 bytes         |         81 | 9.78 KiB   | 124 bytes      |
+| memory/innodb/mem0mem                     |           186 | 8.11 KiB      | 45 bytes          |        186 | 8.11 KiB   | 45 bytes       |
+| memory/innodb/trx0trx                     |            33 | 7.24 KiB      | 225 bytes         |         33 | 7.24 KiB   | 225 bytes      |
+| memory/innodb/trx0sys                     |             3 | 2.65 KiB      | 904 bytes         |          3 | 2.65 KiB   | 904 bytes      |
+| memory/innodb/buf0buf                     |             4 | 2.36 KiB      | 604 bytes         |          5 | 2.43 KiB   | 498 bytes      |
+| memory/innodb/rem0rec                     |            24 | 1.92 KiB      | 82 bytes          |         27 | 2.18 KiB   | 83 bytes       |
+| memory/innodb/adaptive hash index         |            11 | 1.39 KiB      | 129 bytes         |         11 | 1.39 KiB   | 129 bytes      |
+| memory/innodb/dict_stats_bg_recalc_pool_t |             2 | 1.08 KiB      | 552 bytes         |          2 | 1.08 KiB   | 552 bytes      |
+| memory/innodb/trx0purge                   |             2 | 664 bytes     | 332 bytes         |          2 | 664 bytes  | 332 bytes      |
+| memory/innodb/srv0srv                     |             1 | 632 bytes     | 632 bytes         |          1 | 632 bytes  | 632 bytes      |
+| memory/innodb/btr0pcur                    |             4 | 618 bytes     | 154 bytes         |          4 | 618 bytes  | 154 bytes      |
+| memory/innodb/log0recv                    |             1 | 328 bytes     | 328 bytes         |          4 | 2.00 MiB   | 512.36 KiB     |
+| memory/innodb/buf0flu                     |             2 | 280 bytes     | 140 bytes         |          2 | 280 bytes  | 140 bytes      |
+| memory/innodb/trx0i_s                     |             1 | 152 bytes     | 152 bytes         |          1 | 152 bytes  | 152 bytes      |
+| memory/innodb/ha0ha                       |             1 | 152 bytes     | 152 bytes         |          1 | 152 bytes  | 152 bytes      |
+| memory/innodb/buf_stat_per_index_t        |             2 | 144 bytes     | 72 bytes          |          2 | 144 bytes  | 72 bytes       |
+| memory/innodb/ibuf0ibuf                   |             1 | 136 bytes     | 136 bytes         |          1 | 136 bytes  | 136 bytes      |
+| memory/innodb/ut0wqueue                   |             1 | 96 bytes      | 96 bytes          |          1 | 96 bytes   | 96 bytes       |
+| memory/innodb/sync0types                  |             2 | 80 bytes      | 40 bytes          |          2 | 80 bytes   | 40 bytes       |
+| memory/innodb/usr0sess                    |             2 | 80 bytes      | 40 bytes          |          2 | 80 bytes   | 40 bytes       |
+| memory/innodb/dict0boot                   |             1 | 64 bytes      | 64 bytes          |          1 | 64 bytes   | 64 bytes       |
+| memory/innodb/pars0lex                    |             1 | 56 bytes      | 56 bytes          |          1 | 56 bytes   | 56 bytes       |
+| memory/innodb/ut0list                     |             1 | 40 bytes      | 40 bytes          |          1 | 40 bytes   | 40 bytes       |
+| memory/innodb/trx_sys_t::rw_trx_ids       |             1 | 32 bytes      | 32 bytes          |          1 | 32 bytes   | 32 bytes       |
++-------------------------------------------+---------------+---------------+-------------------+------------+------------+----------------+
+45 rows in set (0.06 sec)
+#+END_EXAMPLE
+Source: [[https://github.com/morgo][Morgan Tocker]] 
 * Prometheus
 ** Using the delta function
 The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time. 
