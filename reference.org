@@ -1,2 +1,4 @@
+* mysql 
+** [[http://mysqlblogger.net/20-common-performance_schema-faqs/][Performance Schema FAQ]] 
 * linux
 ** [[http://kernelnewbies.org/KernelGlossary][Kernel Glossary]] 
