@@ -216,6 +216,18 @@ killall Finder
 #+END_SRC
 
 source: http://apple.stackexchange.com/questions/141321/how-to-restore-a-hidden-file-in-time-machine
+** Disable built in keyboard  
+(my use case: to use the happy hacking keyboard on top of the built in
+one when I am on the go)
+
+For the record, what I wound up doing was cutting and pasting the following into the terminal (with my admin password):
+sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+
+To turn it back on, I did this:
+sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+
+Reference: https://discussions.apple.com/message/26556362#26556362
+
 * emacs
 ** recompile installed packages
 http://stackoverflow.com/questions/24725778/how-to-rebuild-elpa-packages-after-upgrade-of-emacs
