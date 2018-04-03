@@ -230,7 +230,17 @@ Reference: https://discussions.apple.com/message/26556362#26556362
 
 * emacs
 ** recompile installed packages
+I have found that this is not only needed between major version upgrades, but sometimes also after SIGKILLing emacs (or similar hard crash). 
 http://stackoverflow.com/questions/24725778/how-to-rebuild-elpa-packages-after-upgrade-of-emacs
+** listing processes 
+To see what's running on emacs, eval list-processes
+Source and related functions: https://www.gnu.org/software/emacs/manual/html_node/elisp/Process-Information.html
+** Get major mode for current buffer 
+M-: major-mode RET (for the current buffer)
+C-h v major-mode RET (same but also describes the mode)
+
+Source: https://emacs.stackexchange.com/questions/18082/how-do-i-get-the-current-major-mode/18083#18083
+
 * git 
 ** update submodules
 from a tree with submodules
