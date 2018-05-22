@@ -104,6 +104,17 @@ select * from sys.memory_global_by_current_bytes where event_name LIKE 'memory/i
 45 rows in set (0.06 sec)
 #+END_EXAMPLE
 Source: [[https://github.com/morgo][Morgan Tocker]] 
+** Docker  
+*** If you need to mount from /root/ or some other dir that does not have the necessary SELinux label 
+
+The :Z option to -v takes care of the relabeling, so you don't need to disable SELinux. However, I prefer to not mount from /root/ if possible. 
+
+    docker run -p 3306:3306 -v /root/mysqlcnfs/mysql1/mysql/conf.d:/etc/mysql/conf.d:Z --name=mysql1 -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:5.7.22
+
+References: 
+- https://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/
+- https://dev.mysql.com/doc/refman/5.7/en/docker-mysql-more-topics.html#docker-persisting-data-configuration
+
 * Prometheus
 ** Using the delta function
 The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time. 
