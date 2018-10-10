@@ -218,6 +218,9 @@ sources:
 - http://www.r-bloggers.com/mysql-and-r/
 - https://cran.r-project.org/package=RMySQL
 * Mac
+** Using autocd on mac  
+The problem is the bash version. 
+https://apple.stackexchange.com/questions/55412/cd-to-a-directory-by-typing-its-name
 ** Show dot files in Finder
 In case you need to restore a dot file from a TimeMachine backup. 
 
