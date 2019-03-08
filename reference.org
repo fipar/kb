@@ -5,3 +5,7 @@
 * git
 ** rebasing
 *** https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history 
+* mac 
+** Sandboxes
+*** https://paolozaino.wordpress.com/2015/08/04/how-to-run-your-applications-in-a-mac-os-x-sandbox-to-enhance-security/
+*** https://www.davd.io/os-x-run-any-command-in-a-sandbox/
