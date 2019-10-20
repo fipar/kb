@@ -254,7 +254,14 @@ M-: major-mode RET (for the current buffer)
 C-h v major-mode RET (same but also describes the mode)
 
 Source: https://emacs.stackexchange.com/questions/18082/how-do-i-get-the-current-major-mode/18083#18083
+** Print using a different theme 
+M-x customize-theme 
+select a theme with a light background
+ps-print-buffer-with-faces
+rollback theme change. 
 
+Must eventually write this into a function. 
+Source: https://emacs.stackexchange.com/questions/18407/ps-print-buffer-with-faces-with-color-themeed-dark-background
 * git 
 ** update submodules
 from a tree with submodules
