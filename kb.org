@@ -115,6 +115,9 @@ References:
 - https://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/
 - https://dev.mysql.com/doc/refman/5.7/en/docker-mysql-more-topics.html#docker-persisting-data-configuration
 
+* Linux 
+** perf not being able to resolve kernel symbols  
+https://unix.stackexchange.com/questions/276179/missing-stack-symbols-with-perf-events-perf-report-despite-fno-omit-frame-poi/542221#542221
 * Prometheus
 ** Using the delta function
 The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time. 
