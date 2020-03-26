@@ -221,6 +221,13 @@ sources:
 - http://www.r-bloggers.com/mysql-and-r/
 - https://cran.r-project.org/package=RMySQL
 * Mac
+** Unquarantine Applications 
+#+BEGIN_SRC sh
+xattr -rd com.apple.quarantine <path/to/app>
+#+END_SRC
+
+Source: https://ask.sagemath.org/question/49572/sage-90-installation-issues-on-macos-10152-catalina/
+
 ** Using autocd on mac  
 The problem is the bash version. 
 https://apple.stackexchange.com/questions/55412/cd-to-a-directory-by-typing-its-name
