@@ -172,6 +172,15 @@ function prepare()
          mytest_print_message("This is a test message","Another one")
 end
 #+END_SRC
+* Sage
+** Installing packages
+https://ask.sagemath.org/question/8927/how-do-i-install-python-modules-or-use-a-different-version-of-python-with-sage/
+This worked for me:
+#+BEGIN_SRC sh
+tar xzf uncertainties-3.1.2.tar.gz && rm uncertainties-3.1.2.tar.gz && cd uncertainties-3.1.2
+sage --python setup.py install
+#+END_SRC
+
 * R
 ** large-ish data sets
 
