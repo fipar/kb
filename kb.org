@@ -116,6 +116,8 @@ References:
 - https://dev.mysql.com/doc/refman/5.7/en/docker-mysql-more-topics.html#docker-persisting-data-configuration
 
 * Linux 
+** emergency ssh access  
+https://smallstep.com/blog/ssh-emergency-access/
 ** perf not being able to resolve kernel symbols  
 https://unix.stackexchange.com/questions/276179/missing-stack-symbols-with-perf-events-perf-report-despite-fno-omit-frame-poi/542221#542221
 * Prometheus
