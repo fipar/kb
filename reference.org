@@ -1,11 +1,13 @@
-* mysql 
-** [[http://mysqlblogger.net/20-common-performance_schema-faqs/][Performance Schema FAQ]] 
+* mysql
+** [[http://mysqlblogger.net/20-common-performance_schema-faqs/][Performance Schema FAQ]]
 * linux
-** [[http://kernelnewbies.org/KernelGlossary][Kernel Glossary]] 
+** [[http://kernelnewbies.org/KernelGlossary][Kernel Glossary]]
 * git
 ** rebasing
-*** https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history 
-* mac 
+*** https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history
+* mac
+** gdb
+*** https://dev.to/jasonelwood/setup-gdb-on-macos-in-2020-489k
 ** Sandboxes
 *** https://paolozaino.wordpress.com/2015/08/04/how-to-run-your-applications-in-a-mac-os-x-sandbox-to-enhance-security/
 *** https://www.davd.io/os-x-run-any-command-in-a-sandbox/
