@@ -2,21 +2,21 @@
 ** Updating modules
 Percona Toolkit includes all modules in the resulting script for each
 tool, so if you make changes to the code for a module, the tools using
-it must be regenerated. 
+it must be regenerated.
 
 The following example updates pt-stalk after making changes to the
-collect module: 
+collect module:
 
 #+BEGIN_SRC sh
 cd /path/to/percona-toolkit/repo/
 util/update-modules bin/pt-stalk collect
-#+END_SRC 
+#+END_SRC
 
-Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]] 
+Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]]
 
 ** Testing
 In order to run the tests for a tool before submitting a patch/pull
-request, the following must be done: 
+request, the following must be done:
 
 1- Set up the required environment variables
 
@@ -26,28 +26,28 @@ export PERCONA_TOOLKIT_SANDBOX=/path/to/mysql/bin/dist
 #+END_SRC
 
 The second variable must point to a binary directory for MySQL, such
-as the ones used by [[http://mysqlsandbox.net][MySQL Sandbox]]. 
+as the ones used by [[http://mysqlsandbox.net][MySQL Sandbox]].
 
 2- Start the sandbox
 
-This is done by running: 
+This is done by running:
 
 #+BEGIN_SRC sh
 cd $PERCONA_TOOLKIT_BRANCH/sandbox
 ./test-env start
-#+END_SRC 
+#+END_SRC
 
 3- Run the test (or tests)
 
-An example to test changes to pt-stalk: 
+An example to test changes to pt-stalk:
 
 #+BEGIN_SRC sh
 cd $PERCONA_TOOLKIT_BRANCH/t/pt-stalk
 prove -v .
 #+END_SRC
 
-Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]] 
-* MySQL 
+Source: Conversation with [[https://github.com/frank-cizmich][Frank Cizmich]]
+* MySQL
 ** 8.0
 *** Innodb Memory usage
 #+BEGIN_EXAMPLE
@@ -103,34 +103,34 @@ select * from sys.memory_global_by_current_bytes where event_name LIKE 'memory/i
 +-------------------------------------------+---------------+---------------+-------------------+------------+------------+----------------+
 45 rows in set (0.06 sec)
 #+END_EXAMPLE
-Source: [[https://github.com/morgo][Morgan Tocker]] 
-** Docker  
-*** If you need to mount from /root/ or some other dir that does not have the necessary SELinux label 
+Source: [[https://github.com/morgo][Morgan Tocker]]
+** Docker
+*** If you need to mount from /root/ or some other dir that does not have the necessary SELinux label
 
-The :Z option to -v takes care of the relabeling, so you don't need to disable SELinux. However, I prefer to not mount from /root/ if possible. 
+The :Z option to -v takes care of the relabeling, so you don't need to disable SELinux. However, I prefer to not mount from /root/ if possible.
 
     docker run -p 3306:3306 -v /root/mysqlcnfs/mysql1/mysql/conf.d:/etc/mysql/conf.d:Z --name=mysql1 -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:5.7.22
 
-References: 
+References:
 - https://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/
 - https://dev.mysql.com/doc/refman/5.7/en/docker-mysql-more-topics.html#docker-persisting-data-configuration
 
-* Linux 
-** emergency ssh access  
+* Linux
+** emergency ssh access
 https://smallstep.com/blog/ssh-emergency-access/
-** perf not being able to resolve kernel symbols  
+** perf not being able to resolve kernel symbols
 https://unix.stackexchange.com/questions/276179/missing-stack-symbols-with-perf-events-perf-report-despite-fno-omit-frame-poi/542221#542221
 * Prometheus
 ** Using the delta function
-The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time. 
-This example graphs the mongodb_op_counters_total variable's changes every 5 seconds: 
+The [[http://prometheus.io/docs/querying/functions/#delta][delta]] function lets you graph monotonically incrementing counters as the difference in their value over a period of time.
+This example graphs the mongodb_op_counters_total variable's changes every 5 seconds:
 
 #+BEGIN_SRC js
 delta(mongodb_op_counters_total[5s])
 #+END_SRC
-** Reloading the configuration 
+** Reloading the configuration
 
-The configuration file can be reloaded live by sending SIGHUP to the process: 
+The configuration file can be reloaded live by sending SIGHUP to the process:
 
 #+BEGIN_SRC sh
 kill -SIGHUP $(pidof prometheus)
@@ -140,8 +140,8 @@ If the configuration has an error, it won't be applied, and the error message wi
 Source: http://prometheus.io/docs/operating/configuration/
 * Sysbench
 ** Adding functions that can be invoked from lua scripts
-- Add a function to an existing test, or to a new test 
-i.e., on sysbench/db_driver.h: 
+- Add a function to an existing test, or to a new test
+i.e., on sysbench/db_driver.h:
 #+BEGIN_SRC c
 void mytest_print_message(char *message);
 #+END_SRC
@@ -153,7 +153,7 @@ void mytest_print_message(char *message)
 }
 #+END_SRC
 - Add the corresponding parts to sysbench/scripting/script_lua.c
-i.e.: 
+i.e.:
 #+BEGIN_SRC c
 static int sb_lua_mytest_print_message(lua_State *L);
 
@@ -168,7 +168,7 @@ int sb_lua_mytest_print_message(lua_State *L)
 lua_pushcfunction(state, sb_lua_mytest_print_message);
 lua_setglobal(state, "mytest_print_message");
 #+END_SRC
-- Now we can use mytest_print_message from a lua script: 
+- Now we can use mytest_print_message from a lua script:
 #+BEGIN_SRC lua
 function prepare()
          mytest_print_message("This is a test message","Another one")
@@ -187,14 +187,14 @@ sage --python setup.py install
 ** large-ish data sets
 
 This imports a csv file into MySQL, then loads it from R to generate a
-scatter plot with a large number of observations (8M in my case). 
+scatter plot with a large number of observations (8M in my case).
 
 I had to use RMySQL because, a direct load via read.csv() would fail
 running out of memory, which is clearly a problem with the read.table
 family of functions, as this is a 2GB file being processed on a 16GB
-RAM box.  
+RAM box.
 
-Here is a snippet of the input file: 
+Here is a snippet of the input file:
 #+BEGIN_EXAMPLE
 00:28:28,0.0000958180
 00:28:28,0.0000031920
@@ -203,7 +203,7 @@ Here is a snippet of the input file:
 00:28:28,0.0000021810
 #+END_EXAMPLE
 
-Which is loaded into MySQL like so: 
+Which is loaded into MySQL like so:
 
 #+BEGIN_SRC sql
 CREATE TABLE `mrt` (
@@ -213,7 +213,7 @@ CREATE TABLE `mrt` (
 load data infile '/tmp/mrt.csv' into table mrt fields terminated by ',';
 #+END_SRC
 
-And then processed from R like so: 
+And then processed from R like so:
 
 #+BEGIN_SRC r
 library(RMySQL)
@@ -232,18 +232,18 @@ sources:
 - http://www.r-bloggers.com/mysql-and-r/
 - https://cran.r-project.org/package=RMySQL
 * Mac
-** Unquarantine Applications 
+** Unquarantine Applications
 #+BEGIN_SRC sh
 xattr -rd com.apple.quarantine <path/to/app>
 #+END_SRC
 
 Source: https://ask.sagemath.org/question/49572/sage-90-installation-issues-on-macos-10152-catalina/
 
-** Using autocd on mac  
-The problem is the bash version. 
+** Using autocd on mac
+The problem is the bash version.
 https://apple.stackexchange.com/questions/55412/cd-to-a-directory-by-typing-its-name
 ** Show dot files in Finder
-In case you need to restore a dot file from a TimeMachine backup. 
+In case you need to restore a dot file from a TimeMachine backup.
 
 #+BEGIN_SRC sh
 defaults write com.apple.finder AppleShowAllFiles TRUE
@@ -251,7 +251,7 @@ killall Finder
 #+END_SRC
 
 source: http://apple.stackexchange.com/questions/141321/how-to-restore-a-hidden-file-in-time-machine
-** Disable built in keyboard  
+** Disable built in keyboard
 (my use case: to use the happy hacking keyboard on top of the built in
 one when I am on the go)
 
@@ -265,43 +265,50 @@ Reference: https://discussions.apple.com/message/26556362#26556362
 
 * emacs
 ** recompile installed packages
-I have found that this is not only needed between major version upgrades, but sometimes also after SIGKILLing emacs (or similar hard crash). 
+I have found that this is not only needed between major version upgrades, but sometimes also after SIGKILLing emacs (or similar hard crash).
 http://stackoverflow.com/questions/24725778/how-to-rebuild-elpa-packages-after-upgrade-of-emacs
-** listing processes 
+** listing processes
 To see what's running on emacs, eval list-processes
 Source and related functions: https://www.gnu.org/software/emacs/manual/html_node/elisp/Process-Information.html
-** Get major mode for current buffer 
+** Get major mode for current buffer
 M-: major-mode RET (for the current buffer)
 C-h v major-mode RET (same but also describes the mode)
 
 Source: https://emacs.stackexchange.com/questions/18082/how-do-i-get-the-current-major-mode/18083#18083
-** Print using a different theme 
-M-x customize-theme 
+** Print using a different theme
+M-x customize-theme
 select a theme with a light background
 ps-print-buffer-with-faces
-rollback theme change. 
+rollback theme change.
 
-Must eventually write this into a function. 
+Must eventually write this into a function.
 Source: https://emacs.stackexchange.com/questions/18407/ps-print-buffer-with-faces-with-color-themeed-dark-background
-* git 
+* Uniden BC75XLT
+** Adding frequencies
+To store frequencies in the first available channel:
+1. Press Hold.
+2. Enter the frequency and press Hold and Func + Pgm .
+3. The scanner alternates between the frequency you are stopped on and the first available channel number with no frequency stored. Press E.
+4. The scanner is now on that frequency, on Hold with the delay function automatically turned on (see page 47). Press Srch or Scan again to continue.
+* git
 ** update submodules
 from a tree with submodules
 (i.e. https://github.com/percona/percona-server-mongodb), after
-cloning: 
+cloning:
 #+BEGIN_SRC sh
 git submodule init
 git pull --recurse-submodules
 git submodule update --recursive
 #+END_SRC
 
-Source: http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules 
+Source: http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules
 ** remove commits from server
 The only valid use case of this, for me, was to remove images I
 accidentally pushed to [[https://github.com/Percona-Lab/benchmark-results.git
 ][benchmark-results]]'s master branch, which should be empty except for
-the README. Otherwise, this is dangerous, as it rewrites history. 
+the README. Otherwise, this is dangerous, as it rewrites history.
 
-What I did is: 
+What I did is:
 #+BEGIN_SRC sh
 git reset --hard HEAD~2  # ~2 because I had to go back 2 commits in this case
 git push master HEAD --force
