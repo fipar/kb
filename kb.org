@@ -175,6 +175,12 @@ function prepare()
 end
 #+END_SRC
 * Sage
+** Useful uncertainties-type functions for RIF
+#+begin_src sage
+uncertain = lambda value, error : RIF(value-error, value+error)
+value_error = lambda r : (r.center(), r.absolute_diameter()/2)
+#+end_src
+Source:https://ask.sagemath.org/question/10660/propagation-of-uncertainty/
 ** Installing packages
 https://ask.sagemath.org/question/8927/how-do-i-install-python-modules-or-use-a-different-version-of-python-with-sage/
 This worked for me:
