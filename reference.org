@@ -4,6 +4,8 @@
 * linux
 ** [[http://kernelnewbies.org/KernelGlossary][Kernel Glossary]]
 * git
+** Different users for different accounts
+*** https://stackoverflow.com/questions/4665337/git-pushing-to-remote-github-repository-as-wrong-user
 ** rebasing
 *** https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history
 * mac
