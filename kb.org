@@ -239,6 +239,17 @@ xattr -rd com.apple.quarantine <path/to/app>
 
 Source: https://ask.sagemath.org/question/49572/sage-90-installation-issues-on-macos-10152-catalina/
 
+** Fix hostname in terminal in Sequoia
+Source:https://discussions.apple.com/thread/255761651?sortBy=rank
+Note these are 3 different settings but I'm setting them to the same because that's how I use my machines.
+#+begin_src sh :results output raw
+hostname=moog
+for setting in HostName LocalHostName ComputerName; do
+    sudo scutil --set $setting $hostname
+done
+#+end_src
+
+
 ** Using autocd on mac
 The problem is the bash version.
 https://apple.stackexchange.com/questions/55412/cd-to-a-directory-by-typing-its-name
